@@ -2,6 +2,8 @@ import spacy
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 
+pd.set_option("display.max_columns", None)
+
 # load models
 nlp = spacy.load("en_core_web_lg")
 st_model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -28,10 +30,10 @@ def parse_query(query):
         location = ["Long Beach"]   # long beach as our default city
     
     # find closest accessibility intent
-    q_emb = st_model.encode(query)
-    l_emb = st_model.encode(labels)
-    sims = util.cos_sim(q_emb, l_emb)
-    filter_idx = sims.argmax().item()
+    query_embedding = st_model.encode(query)
+    label_embedding = st_model.encode(labels)
+    similarities = util.cos_sim(query_embedding, label_embedding)
+    filter_idx = similarities.argmax().item()
     top_filter = labels[filter_idx]
 
     return {
