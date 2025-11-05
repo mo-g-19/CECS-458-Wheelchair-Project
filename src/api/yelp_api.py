@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from src.api.models import Place
 
+load_dotenv()
 YELP_API_KEY = os.getenv("YELP_API_KEY", "")
 if not YELP_API_KEY:
     raise ValueError("Please set YELP_API_KEY in your environment or .env file.")
