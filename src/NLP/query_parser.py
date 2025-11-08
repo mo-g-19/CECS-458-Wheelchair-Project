@@ -19,7 +19,8 @@ labels = [
     "accessible parking"
 ]
 
-cuisines_list = ["thai","italian","mexican","vegan","japanese"]  # can add more
+cuisines_list = ["thai","italian","mexican","vegan","japanese","pizza","burger","ramen","sushi","indian"]  # can add more
+
 
 def parse_query(query):
     doc = nlp(query)
@@ -45,43 +46,63 @@ def parse_query(query):
         "accessibility": top_filter
     }
 
-def _accessibility_flags_from_reviews(reviews):
-    """Return dict of label->0/1 by checking semantic similarity in review snippets."""
+
+def get_accessibility_flags(reviews):
+    """
+    Return dict of label->0/1 by checking semantic similarity in review snippets
+    """
+    # if no reviews
     if not reviews:
         return {lbl: 0 for lbl in labels}
+    
+    # else, we have reviews
     snippets = []
     for r in reviews:
-        for s in r.split("."):  # very light split to avoid heavy re-tokenization
+        # split by sentences
+        for s in r.split("."):
             s = s.strip()
+            # skip short sentences since usually just noise
             if len(s) > 3:
                 snippets.append(s)
+    # if all sentences short -> no snippets
     if not snippets:
         return {lbl: 0 for lbl in labels}
 
-    lbl_embs = st_model.encode(labels, normalize_embeddings=True)
-    snip_embs = st_model.encode(snippets, normalize_embeddings=True)
-    sims = util.cos_sim(lbl_embs, snip_embs)
-    THRESH = 0.40  # conservative starting point; tune per label if needed
-    out = {}
+    # create embeddings to find parts related to accessibility (flags)
+    label_embeddings = st_model.encode(labels, normalize_embeddings=True)
+    snippet_embeddings = st_model.encode(snippets, normalize_embeddings=True)
+    similarities = util.cos_sim(label_embeddings, snippet_embeddings)
+    threshold = 0.40
+    result = {}
+    # if snippet similar enough to accessibility flags -> mark as review mentioning flag
     for i, lbl in enumerate(labels):
-        out[lbl] = 1 if float(sims[i].max().item()) >= THRESH else 0
-    return out
+        result[lbl] = 1 if float(similarities[i].max().item()) >= threshold else 0
+    return result
 
-def _build_results_from_yelp(city="Long Beach", term="restaurants"):
-    """Return a DataFrame with columns: name, cuisine, location, and 4 accessibility flags."""
-    places = fetch_places(
-        city=city, term=term, categories="restaurants",
-        limit=50, max_results=150, include_reviews=True
-    )
+
+def build_results(city="Long Beach", term="restaurants"):
+    """
+    Return a DataFrame with columns: name, cuisine, location, and 4 accessibility flags
+    """
+    # get places from yelp
+    places = fetch_places(city=city, 
+                          term=term, 
+                          categories="restaurants",
+                          limit=5, 
+                          max_results=15, 
+                          include_reviews=True,
+                          attributes="wheelchair_accessible")
+
     rows = []
     for p in places:
-        flags = _accessibility_flags_from_reviews(getattr(p, "reviews", []))
+        # get accessibility flags for each review in each place
+        flags = get_accessibility_flags(getattr(p, "reviews", []))
         row = {
             "name": getattr(p, "name", ""),
             "cuisine": (term or "restaurants").lower(),
             "location": getattr(p, "city", city),
         }
-        # add boolean columns matching your original CSV convention
+        # add boolean columns
         for lbl in labels:
             row[lbl.replace(" ", "_")] = flags[lbl]
         rows.append(row)
@@ -92,9 +113,11 @@ def _build_results_from_yelp(city="Long Beach", term="restaurants"):
 # print(parse_query("I'm looking for Italian food near me with a ramp or no stairs"))
 
 # results = pd.read_csv("./data/places.csv")
-results = _build_results_from_yelp(city="Long Beach", term="restaurants")
+results = build_results(city="Long Beach", term="restaurants")
 
 query = parse_query("I'm looking for Thai food in Long Beach with an accessible restroom")
+
+
 
 matched = results[
     (results["cuisine"] == query["cuisine"][0]) &

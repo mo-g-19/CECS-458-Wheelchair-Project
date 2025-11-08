@@ -51,12 +51,23 @@ def fetch_places(city: str = "Long Beach, CA",
                  categories: str = "restaurants",
                  limit: int = 50,
                  max_results: int = 150,
-                 include_reviews: bool = True) -> List[Place]:
+                 include_reviews: bool = True,
+                 attributes: str | None = None) -> List[Place]:
     client = YelpClient()
     offset, results = 0, []
 
     while offset < max_results:
-        data = client.search(term=term, location=city, categories=categories, limit=limit, offset=offset)
+        params = dict(term=term,
+                    location=city,
+                    categories=categories,
+                    limit=limit,
+                    offset=offset)
+        
+        if attributes:
+            params["attributes"] = attributes
+            
+        data = client.search(**params)
+        
         businesses = data.get("businesses", [])
         if not businesses: break
 
