@@ -2,3 +2,6 @@ numpy
 requests
 nltk
 sentence-transformers
+pydantic
+tenacity
+python-dotenv
