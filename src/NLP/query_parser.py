@@ -16,7 +16,9 @@ labels = [
     "wheelchair accessible",
     "accessible restroom",
     "step-free entrance",
-    "accessible parking"
+    "accessible parking",
+    "automatic door",
+    "elevator access"
 ]
 
 # label_thresholds = {}
@@ -25,6 +27,9 @@ cuisines_list = ["thai","italian","mexican","vegan","japanese","pizza","burger",
 
 
 def parse_query(query):
+    """
+    Return cuisine, location (city), and accessibility filter from user query
+    """
     doc = nlp(query)
     # extract location (GPE) and possible cuisine words
     location = [ent.text for ent in doc.ents if ent.label_ == "GPE"]
@@ -87,7 +92,7 @@ def build_results(city="Long Beach", term="restaurants"):
     """
     Return a DataFrame with columns: name, cuisine, location, and 4 accessibility flags
     """
-    # get places from yelp
+    # get places from yelp labeled as wheelchair accessible
     places_labeled = fetch_places(city=city, 
                                   term=term, 
                                   categories="restaurants",
@@ -95,6 +100,7 @@ def build_results(city="Long Beach", term="restaurants"):
                                   max_results=20, 
                                   include_reviews=True,
                                   attributes="wheelchair_accessible")
+    # get places from yelp, not checking for label
     places_all = fetch_places(city=city, 
                               term=term, 
                               categories="restaurants",
@@ -143,9 +149,6 @@ def build_results(city="Long Beach", term="restaurants"):
         rows.append(row)
     return pd.DataFrame(rows)
 
-# test output
-# print(parse_query("Find a Thai restaurant in Long Beach with a ramp or no stairs"))
-# print(parse_query("I'm looking for Italian food near me with a ramp or no stairs"))
 
 
 query = parse_query("I'm looking for food in Long Beach with an accessible restroom")
