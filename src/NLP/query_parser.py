@@ -19,6 +19,8 @@ labels = [
     "accessible parking"
 ]
 
+# label_thresholds = {}
+
 cuisines_list = ["thai","italian","mexican","vegan","japanese","pizza","burger","ramen","sushi","indian"]  # can add more
 
 
@@ -72,7 +74,8 @@ def get_accessibility_flags(reviews):
     label_embeddings = st_model.encode(labels, normalize_embeddings=True)
     snippet_embeddings = st_model.encode(snippets, normalize_embeddings=True)
     similarities = util.cos_sim(label_embeddings, snippet_embeddings)
-    threshold = 0.40
+    
+    threshold = 0.40 # set for now, can be refined later
     result = {}
     # if snippet similar enough to accessibility flags -> mark as review mentioning flag
     for i, lbl in enumerate(labels):
@@ -85,26 +88,58 @@ def build_results(city="Long Beach", term="restaurants"):
     Return a DataFrame with columns: name, cuisine, location, and 4 accessibility flags
     """
     # get places from yelp
-    places = fetch_places(city=city, 
-                          term=term, 
-                          categories="restaurants",
-                          limit=5, 
-                          max_results=15, 
-                          include_reviews=True,
-                          attributes="wheelchair_accessible")
+    places_labeled = fetch_places(city=city, 
+                                  term=term, 
+                                  categories="restaurants",
+                                  limit=10, 
+                                  max_results=20, 
+                                  include_reviews=True,
+                                  attributes="wheelchair_accessible")
+    places_all = fetch_places(city=city, 
+                              term=term, 
+                              categories="restaurants",
+                              limit=10, 
+                              max_results=20, 
+                              include_reviews=True)
+
+    # combine: prefer labeled results, but also include unlabeled ones (deduplicate by id if available, else by name)
+    seen = set()
+    combined = []
+    for p in places_labeled:
+        key = getattr(p, "id", None) or getattr(p, "name", "")
+        if key not in seen:
+            combined.append((p, True))   # True -> Yelp says wheelchair-accessible
+            seen.add(key)
+    for p in places_all:
+        key = getattr(p, "id", None) or getattr(p, "name", "")
+        if key not in seen:
+            combined.append((p, False))  # False -> not labeled by Yelp
+            seen.add(key)
 
     rows = []
-    for p in places:
+    for p, is_yelp_labeled in combined:
         # get accessibility flags for each review in each place
         flags = get_accessibility_flags(getattr(p, "reviews", []))
+        # if Yelp labels it OR reviews suggest wheelchair/step-free, consider it wheelchair accessible for our pipeline
+        inferred_wc = max(flags["wheelchair accessible"], flags["step-free entrance"])
+        wheelchair_final = 1 if is_yelp_labeled or inferred_wc == 1 else 0
+
         row = {
+            "id": getattr(p, "id", ""),
             "name": getattr(p, "name", ""),
             "cuisine": (term or "restaurants").lower(),
             "location": getattr(p, "city", city),
+            "lat": getattr(p, "lat", None),
+            "lon": getattr(p, "lon", None),
+            "rating": getattr(p, "rating", None),
+            "review_count": getattr(p, "review_count", None),
         }
         # add boolean columns
         for lbl in labels:
-            row[lbl.replace(" ", "_")] = flags[lbl]
+            if lbl == "wheelchair accessible":
+                row[lbl.replace(" ", "_")] = wheelchair_final
+            else:
+                row[lbl.replace(" ", "_")] = flags[lbl]
         rows.append(row)
     return pd.DataFrame(rows)
 
@@ -112,12 +147,13 @@ def build_results(city="Long Beach", term="restaurants"):
 # print(parse_query("Find a Thai restaurant in Long Beach with a ramp or no stairs"))
 # print(parse_query("I'm looking for Italian food near me with a ramp or no stairs"))
 
-# results = pd.read_csv("./data/places.csv")
-results = build_results(city="Long Beach", term="restaurants")
 
-query = parse_query("I'm looking for Thai food in Long Beach with an accessible restroom")
+query = parse_query("I'm looking for food in Long Beach with an accessible restroom")
 
+city = query["location"][0] if query["location"][0] != "unspecified" else "Long Beach, CA"
+term = query["cuisine"][0] if query["cuisine"][0] != "unspecified" else "restaurants"
 
+results = build_results(city=city, term=term)
 
 matched = results[
     (results["cuisine"] == query["cuisine"][0]) &
@@ -125,5 +161,10 @@ matched = results[
     (results[query["accessibility"].replace(' ', '_')] == 1)
 ]
 
-print(matched)
+# formatted results to include details relevant to gcn usage
+formatted_results = matched[[
+    "id","name","cuisine","location","lat","lon","rating","review_count",
+    "wheelchair_accessible","accessible_restroom","step-free_entrance","accessible_parking"
+]].reset_index(drop=True)
 
+print(formatted_results)
