@@ -24,3 +24,16 @@ def build_graph(cfg):
     uid_map = {uid:i for i, uid in enumerate(reviews["user_id"].dropna().unique())}
     #review: from the text of review
     vid_map = {vid:i for i, vid in enumerate(reviews["id"].dropna().unique())}
+
+    #edges: user -> review or review -> resturaunt
+    #indexing by mapped ids
+    #geo neighbor edgse for resturaunt to resturaunt
+    r2r_edge_index = geo_rings(places, rid_map, radius_km=cfg["data"]["geo_radius_km"])
+    #Making an index based on the edges
+    data["resturaunt", "near", "resturaunt"].edge_index = r2r_edge_index
+
+    #features
+    build_features(data, places, reviews, rid_map, uid_map, vid_map)
+
+    #Returning the: local table, the table sorted by torch, and a dictionary of resturaunt, user, and review
+    return data_source, data, {"rest": rid_map, "user": uid_map, "rev ": vid_map}
