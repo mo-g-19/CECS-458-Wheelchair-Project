@@ -8,6 +8,7 @@
 import pandas as pd
 import numpy as np
 import torch
+import yaml
 from ..common.infer import load_embeddings
 from ..common.graph_build import build_graph
 from ..common.geo import haversine_m
@@ -15,14 +16,15 @@ from ...fusion.late_fusion import fuse
 
 def rank(lat, lon, query, topk=10, cfg_path="configs/mvp.yaml"):
     #Build graph and get embeddings
-    data_source, data, maps = build_graph({"data":{"path":"data", "geo_radius_km":5}})
+    cfg = yaml.safe_load(open(cfg_path))
+    data_source, data, maps = build_graph(cfg)
     rest_emb = load_embeddings("restaurant_emb.pt") #[N,D] (remember M matrix from common.geo -> graph matrix)
 
     #Local filter by radius
     places = data_source.fetch_places()
     coords = places[["lat", "lon"]].values
     dists = haversine_m(np.array([[lat, lon]]), coords).flatten()
-    keep = np.where(dists <= 5)[0]
+    keep = np.where(dists <= cfg["data"]["geo_radius_m"])[0]
 
     #stub: scores from embeddings cosine to query vector (if use embed query)
     #accessibility and quality from reviews added here (GAT)
