@@ -1,0 +1,1 @@
+This is the attention model. This is for the review credibility
