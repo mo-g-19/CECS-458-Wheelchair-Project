@@ -111,4 +111,4 @@ def build_hetero_example() -> HeteroData:
         self.heads = nn.ModuleDict()
         for node_type in metadata[0]:   #metadata[0] contains node types
             self.heads[node_type] = nn.Linear(out_channels, 1)   #Output single value per node
-    )
+    
