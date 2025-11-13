@@ -13,28 +13,44 @@ Review (what are these geospatial helpers and why do we need them?)
 
 import numpy as np
 import torch
+from typing import Tuple, Optional
 
-def haversine_m(coord1, coord2):
+EARTH_RADIUS_MI = 3958.7613  # miles
+EARTH_RADIUS_KM = 6371.0088  # kilometers
+
+def haversine_m(coord1_deg: np.ndarray, coord2_deg: np.ndarray) -> np.ndarray:
     #coord1, coord2 are tuples of [(lat, lon), (lat,long)] in degrees
-    R = 3963.0  # Earth radius in kilometers
-    lat1, lon1 = np.radians(coord1[:,0]), np.radians(coord1[:,1])
-    lat2, lon2 = np.radians(coord2[:,0]), np.radians(coord2[:,1])
+    coord1 = np.radians(coord1_deg.astype(float))
+    coord2 = np.radians(coord2_deg.astype(float))
+    lat1, lon1 = coord1[:,0], coord1[:,1]
+    lat2, lon2 = coord2[:,0],coord2[:,1]
+
+    dlat = lat2 - lat1[..., None]
+    dlon = lon2 - lon1[..., None]
     #haversine formula
-    distance = 2*R*np.arcsin(np.sqrt(
-        np.sin((lat2 - lat1)/2)**2 +
-        np.cos(lat1)*np.cos(lat2)*np.sin((lon2 - lon1)/2)**2))
-    return distance
+    h = np.sin(dlat / 2.0) ** 2 + np.cos(lat1)[..., None] * np.cos(lat2) * np.sin(dlon / 2.0) ** 2
+    dist = 2.0 * EARTH_RADIUS_MI * np.arcsin(np.sqrt(h))
+    return dist.squeeze(0) if dist.shape[0] == 1 else dist
 
 #If not given a radius, default to 5m
 #This function returns edges between places within radius_m
-def geo_rings(places, rid_map, radius_m=5):
+def geo_rings(places, radius_miles: float = 5.0, bidirectional: bool = True, include_self: bool = False):
     coords = places[["lat", "lon"]].values
     n = len(coords)
     src, dst = [], []
+
     for i in range(n):
-        dists = haversine_m(np.repeat([coords[i]], n, axis=0), coords)
-        numbers = np.where((dists > 0) & (dists <= radius_m))[0]
-        for j in numbers:
+        dists = haversine_m(np.repeat(coords[i:i+1], n, axis=0), coords)  # [n]
+        mask = (dists <= radius_miles)
+        if not include_self:
+            mask &= (np.arange(n) != i)
+
+        nbrs = np.where(mask)[0]
+        for j in nbrs.tolist():
             src.append(i); dst.append(j)
-    return torch.tensor([src, dists], dtype=torch.long)
-        
+            if bidirectional and j != i:
+                src.append(j); dst.append(i)
+
+    if not src:
+        return torch.empty((2, 0), dtype=torch.long)
+    return torch.tensor([src, dst], dtype=torch.long)
