@@ -41,16 +41,22 @@ def parse_query(query):
         location = ["Long Beach"]   # long beach as our default city
     
     # find closest accessibility intent
-    query_embedding = st_model.encode(query)
-    label_embedding = st_model.encode(labels)
-    similarities = util.cos_sim(query_embedding, label_embedding)
-    filter_idx = similarities.argmax().item()
-    top_filter = labels[filter_idx]
+    query_embedding = st_model.encode(query, normalize_embeddings=True)
+    label_embedding = st_model.encode(labels, normalize_embeddings=True)
+    similarities = util.cos_sim(query_embedding, label_embedding)[0].tolist()
+    
+    threshold = 0.40 # set for now
+    matched_labels = [label for label, score in zip(labels, similarities) if score >= threshold]
+
+    # if nothing passes threshold, still keep  highest one
+    if not matched_labels:
+        top_idx = int(similarities.index(max(similarities)))
+        matched_labels = [labels[top_idx]]
 
     return {
         "cuisine": cuisines or ["unspecified"],
         "location": location or ["unspecified"],
-        "accessibility": top_filter
+        "accessibility": matched_labels
     }
 
 
@@ -80,7 +86,7 @@ def get_accessibility_flags(reviews):
     snippet_embeddings = st_model.encode(snippets, normalize_embeddings=True)
     similarities = util.cos_sim(label_embeddings, snippet_embeddings)
     
-    threshold = 0.40 # set for now, can be refined later
+    threshold = 0.20 # set for now, can be refined later
     result = {}
     # if snippet similar enough to accessibility flags -> mark as review mentioning flag
     for i, lbl in enumerate(labels):
@@ -90,7 +96,7 @@ def get_accessibility_flags(reviews):
 
 def build_results(city="Long Beach", term="restaurants"):
     """
-    Return a DataFrame with columns: name, cuisine, location, and 4 accessibility flags
+    Return a DataFrame with columns: name, cuisine, location, and accessibility flags
     """
     # get places from yelp labeled as wheelchair accessible
     places_labeled = fetch_places(city=city, 
@@ -151,17 +157,20 @@ def build_results(city="Long Beach", term="restaurants"):
 
 
 
-query = parse_query("I'm looking for food in Long Beach with an accessible restroom")
+query = parse_query("I'm looking for Thai food in Long Beach")
 
 city = query["location"][0] if query["location"][0] != "unspecified" else "Long Beach, CA"
 term = query["cuisine"][0] if query["cuisine"][0] != "unspecified" else "restaurants"
 
 results = build_results(city=city, term=term)
+required_cols = [lbl.replace(" ", "_") for lbl in query["accessibility"]]
+all_flags = results[required_cols].all(axis=1)
 
 matched = results[
     (results["cuisine"] == query["cuisine"][0]) &
     (results["location"] == query["location"][0]) &
-    (results[query["accessibility"].replace(' ', '_')] == 1)
+    all_flags &
+    (results["wheelchair_accessible"] == 1)
 ]
 
 # formatted results to include details relevant to gcn usage
