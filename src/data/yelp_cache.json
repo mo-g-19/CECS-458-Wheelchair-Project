@@ -1,0 +1,26 @@
+// example format plan
+{
+  "amazing-thai-id-123": {
+    "name": "Amazing Thai",
+    "city": "Los Angeles",
+    "cuisine": "thai",
+    "rating": 4.7,
+    "review_count": 189,
+    "lat": 34.0453,
+    "lon": -118.2428,
+    "reviews": [
+      "The entrance has a ramp.",
+      "Restroom is wheelchair accessible."
+    ]
+  },
+  "golden-noodle-987": {
+    "name": "Golden Noodle",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.5,
+    "review_count": 76,
+    "lat": 33.7842,
+    "lon": -118.1937,
+    "reviews": []
+  }
+}

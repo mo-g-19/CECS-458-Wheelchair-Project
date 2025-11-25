@@ -1,0 +1,11 @@
+// data from user reviews format idea
+{
+  "business_id_1": {
+    "accessible_restroom": 1,
+    "wheelchair_accessible": 1,
+    "review": "maybe also sentence review?"
+  },
+  "business_id_2": {
+    "accessible_restroom": 0
+  }
+}
