@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from typing import List, Dict
 from pydantic import BaseModel
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
-from src.api.models import Place
+from api.yelp_models import Place
 
 load_dotenv()
 YELP_API_KEY = os.getenv("YELP_API_KEY", "")

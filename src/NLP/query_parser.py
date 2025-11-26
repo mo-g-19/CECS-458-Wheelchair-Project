@@ -3,6 +3,7 @@ from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 from dotenv import load_dotenv
 from src.api.yelp_api import fetch_places
+from src.api.community_json import get_flags, record_flag
 
 load_dotenv()
 pd.set_option("display.max_columns", None)
@@ -40,6 +41,8 @@ def parse_query(query):
     if any(p in query_lower for p in ["near me", "around here", "close by", "nearby", "close to me"]):
         location = ["Long Beach"]   # long beach as our default city
     
+    # TODO: add detection for if user want to rate place? or maybe diff ui
+
     # find closest accessibility intent
     query_embedding = st_model.encode(query, normalize_embeddings=True)
     label_embedding = st_model.encode(labels, normalize_embeddings=True)
@@ -152,31 +155,42 @@ def build_results(city="Long Beach", term="restaurants"):
                 row[lbl.replace(" ", "_")] = wheelchair_final
             else:
                 row[lbl.replace(" ", "_")] = flags[lbl]
+
+        community = get_flags(getattr(p, "id", ""))
+        for lbl in labels:
+            key = lbl.replace(" ", "_")
+            if key in community:
+                # community rating overrides model inference
+                row[key] = community[key]
         rows.append(row)
     return pd.DataFrame(rows)
 
 
 
-query = parse_query("I'm looking for Thai food in Long Beach")
+# query = parse_query("I'm looking for Thai food in Long Beach")
 
-city = query["location"][0] if query["location"][0] != "unspecified" else "Long Beach, CA"
-term = query["cuisine"][0] if query["cuisine"][0] != "unspecified" else "restaurants"
+# city = query["location"][0] if query["location"][0] != "unspecified" else "Long Beach, CA"
+# term = query["cuisine"][0] if query["cuisine"][0] != "unspecified" else "restaurants"
 
-results = build_results(city=city, term=term)
-required_cols = [lbl.replace(" ", "_") for lbl in query["accessibility"]]
-all_flags = results[required_cols].all(axis=1)
+# results = build_results(city=city, term=term)
+# required_cols = [lbl.replace(" ", "_") for lbl in query["accessibility"]]
+# all_flags = results[required_cols].all(axis=1)
 
-matched = results[
-    (results["cuisine"] == query["cuisine"][0]) &
-    (results["location"] == query["location"][0]) &
-    all_flags &
-    (results["wheelchair_accessible"] == 1)
-]
+# matched = results[
+#     (results["cuisine"] == query["cuisine"][0]) &
+#     (results["location"] == query["location"][0]) &
+#     all_flags &
+#     (results["wheelchair_accessible"] == 1)
+# ]
 
-# formatted results to include details relevant to gcn usage
-formatted_results = matched[[
-    "id","name","cuisine","location","lat","lon","rating","review_count",
-    "wheelchair_accessible","accessible_restroom","step-free_entrance","accessible_parking"
-]].reset_index(drop=True)
+# # formatted results to include details relevant to gcn usage
+# formatted_results = matched[[
+#     "id","name","cuisine","location","lat","lon","rating","review_count",
+#     "wheelchair_accessible","accessible_restroom","step-free_entrance","accessible_parking"
+# ]].reset_index(drop=True)
 
-print(formatted_results)
+# print(formatted_results)
+
+
+
+record_flag("business_id_3", "accessible_restroom", 1)
