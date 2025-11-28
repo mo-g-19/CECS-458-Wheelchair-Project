@@ -1,4 +1,4 @@
-# src/api/models.py
+# src/api/yelp_models.py
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 

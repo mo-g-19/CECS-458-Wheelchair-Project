@@ -1,6 +1,6 @@
 import json, os
 
-STORE = "data/community.json"
+STORE = os.path.join("src", "data", "community.json")
 
 def load_store():
     if not os.path.exists(STORE):
@@ -9,7 +9,7 @@ def load_store():
         return json.load(f)
 
 def save_store(d):
-    os.makedirs("data", exist_ok=True)
+    os.makedirs(os.path.dirname(STORE), exist_ok=True)
     with open(STORE, "w") as f:
         json.dump(d, f, indent=2)
 

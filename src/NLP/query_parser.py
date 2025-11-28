@@ -193,4 +193,4 @@ def build_results(city="Long Beach", term="restaurants"):
 
 
 
-record_flag("business_id_3", "accessible_restroom", 1)
+record_flag("business_id_3", "step-free_entrance", 1)

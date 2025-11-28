@@ -4,6 +4,10 @@
     "wheelchair_accessible": 1
   },
   "business_id_2": {
-    "accessible_restroom": 0
+    "accessible_restroom": 1
+  },
+  "business_id_3": {
+    "accessible_restroom": 1,
+    "step-free_entrance": 1
   }
 }
