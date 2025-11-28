@@ -4,8 +4,8 @@ This builds a heterogenous graph from places.csv and reviews
 """
 
 import torch
-import torch_geometric.data import HeteroData
-from .data_source import LocalCSV 
+from torch_geometric.data import HeteroData
+from .data_sources import LocalCSV 
 from .features import build_features
 from .geo import geo_rings
 
@@ -13,8 +13,8 @@ from .geo import geo_rings
 def build_graph(cfg):
     #Load the tables using LocalCSV from data_sources.py
     data_source = LocalCSV(cfg['data']['path'])
-    places_df = data_source.load_places()
-    reviews_df = data_source.load_reviews()
+    places = data_source.load_places()
+    reviews = data_source.load_reviews()
     data = HeteroData()
 
     #node id maps

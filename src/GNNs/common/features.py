@@ -3,13 +3,13 @@
 
 import torch
 import numpy as np
-from ..NLP.embedder import get_sentence_model, embed_sentences
+from sentence_transformers import SentenceTransformer
 
 def build_features(data, places, reviews, rid_map, uid_map, vid_map):
     #resturaunt features
     #First location
     lat = torch.tensor(places["lat"].values, dtype=torch.float32).unsqueeze(1)
-    lon = orch.tensor(places["lon"].values, dtype=torch.float32).unsqueeze(1)
+    lon = torch.tensor(places["lon"].values, dtype=torch.float32).unsqueeze(1)
     #Then making sure distance is small for Minimal Viable Product
     restuaunt_feat = torch.cat([lat, lon], dim=1)
     data["resturaunt"].x = restuaunt_feat
@@ -24,8 +24,8 @@ def build_features(data, places, reviews, rid_map, uid_map, vid_map):
     #Review features (text embeddings)
     #Make sure there are actual words in the review
     if len(reviews) > 0 and "text" in reviews:
-        model = get_sentence_model()    #The all-MiniLM-L6-v2 model from search.py
-        embs = embed_senteces(model, reviews["text"].fillna("").tolist())
+        model = SentenceTransformer('all-MiniLM-L6-v2')    #The all-MiniLM-L6-v2 model from search.py
+        embs = model.encode(model, reviews["text"].fillna("").tolist())
         review_texts = torch.tensor(np.asarray(embs), dtype=torch.float32)
     else:
         #Placeholder of zeros if no reviews
