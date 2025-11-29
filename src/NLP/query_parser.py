@@ -13,7 +13,7 @@ nlp = spacy.load("en_core_web_lg")
 st_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # example accessibility labels
-labels = [
+LABELS = [
     "wheelchair accessible",
     "accessible restroom",
     "step-free entrance",
@@ -31,32 +31,38 @@ def parse_query(query):
     """
     Return cuisine, location (city), and accessibility filter from user query
     """
+    # determine if user wants to find or review place
+    query_lower = query.lower()
+    is_review = any(word in query_lower for word in ["review", "rate", "my experience", "i went to", "visited"])
+    is_search = any(word in query_lower for word in ["find", "show", "looking for", "restaurant", "place", "search", "near me"])
+
+    intent = "review" if is_review and not is_search else "search"
+    
     doc = nlp(query)
     # extract location (GPE) and possible cuisine words
     location = [ent.text for ent in doc.ents if ent.label_ == "GPE"]
     cuisines = [token.text.lower() for token in doc if token.text.lower() in cuisines_list]
     
-    # detect "near me" or similar phrases
-    query_lower = query.lower()
-    if any(p in query_lower for p in ["near me", "around here", "close by", "nearby", "close to me"]):
-        location = ["Long Beach"]   # long beach as our default city
-    
-    # TODO: add detection for if user want to rate place? or maybe diff ui
+    if intent == "search":
+        # detect "near me" or similar phrases
+        if any(p in query_lower for p in ["near me", "around here", "close by", "nearby", "close to me"]):
+            location = ["Long Beach"]   # long beach as our default city
 
-    # find closest accessibility intent
-    query_embedding = st_model.encode(query, normalize_embeddings=True)
-    label_embedding = st_model.encode(labels, normalize_embeddings=True)
-    similarities = util.cos_sim(query_embedding, label_embedding)[0].tolist()
-    
-    threshold = 0.40 # set for now
-    matched_labels = [label for label, score in zip(labels, similarities) if score >= threshold]
+        # find closest accessibility intent
+        query_embedding = st_model.encode(query, normalize_embeddings=True)
+        label_embedding = st_model.encode(LABELS, normalize_embeddings=True)
+        similarities = util.cos_sim(query_embedding, label_embedding)[0].tolist()
+        
+        threshold = 0.40 # set for now
+        matched_labels = [label for label, score in zip(LABELS, similarities) if score >= threshold]
 
-    # if nothing passes threshold, still keep  highest one
-    if not matched_labels:
-        top_idx = int(similarities.index(max(similarities)))
-        matched_labels = [labels[top_idx]]
+        # if nothing passes threshold, still keep  highest one
+        if not matched_labels:
+            top_idx = int(similarities.index(max(similarities)))
+            matched_labels = [LABELS[top_idx]]
 
     return {
+        "intent": intent,
         "cuisine": cuisines or ["unspecified"],
         "location": location or ["unspecified"],
         "accessibility": matched_labels
@@ -69,7 +75,7 @@ def get_accessibility_flags(reviews):
     """
     # if no reviews
     if not reviews:
-        return {lbl: 0 for lbl in labels}
+        return {lbl: 0 for lbl in LABELS}
     
     # else, we have reviews
     snippets = []
@@ -82,17 +88,17 @@ def get_accessibility_flags(reviews):
                 snippets.append(s)
     # if all sentences short -> no snippets
     if not snippets:
-        return {lbl: 0 for lbl in labels}
+        return {lbl: 0 for lbl in LABELS}
 
     # create embeddings to find parts related to accessibility (flags)
-    label_embeddings = st_model.encode(labels, normalize_embeddings=True)
+    label_embeddings = st_model.encode(LABELS, normalize_embeddings=True)
     snippet_embeddings = st_model.encode(snippets, normalize_embeddings=True)
     similarities = util.cos_sim(label_embeddings, snippet_embeddings)
     
     threshold = 0.20 # set for now, can be refined later
     result = {}
     # if snippet similar enough to accessibility flags -> mark as review mentioning flag
-    for i, lbl in enumerate(labels):
+    for i, lbl in enumerate(LABELS):
         result[lbl] = 1 if float(similarities[i].max().item()) >= threshold else 0
     return result
 
@@ -150,14 +156,14 @@ def build_results(city="Long Beach", term="restaurants"):
             "review_count": getattr(p, "review_count", None),
         }
         # add boolean columns
-        for lbl in labels:
+        for lbl in LABELS:
             if lbl == "wheelchair accessible":
                 row[lbl.replace(" ", "_")] = wheelchair_final
             else:
                 row[lbl.replace(" ", "_")] = flags[lbl]
 
         community = get_flags(getattr(p, "id", ""))
-        for lbl in labels:
+        for lbl in LABELS:
             key = lbl.replace(" ", "_")
             if key in community:
                 # community rating overrides model inference
