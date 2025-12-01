@@ -2,7 +2,7 @@
 import argparse
 from src.GNNs.pipeline.rank_local import rank
 from src.NLP.query_parser import parse_query, build_results
-from src.data.community_json import record_flag, add_text_review, get_flags, get_text_reviews
+from src.api.community_json import record_flag, add_text_review, get_flags, get_text_reviews
 
 # if __name__ == "__main__":
 #     ap = argparse.ArgumentParser()

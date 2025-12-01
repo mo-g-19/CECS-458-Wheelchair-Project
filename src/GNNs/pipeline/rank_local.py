@@ -14,7 +14,7 @@ from ..common.graph_build import build_graph
 from ..common.geo import haversine_m
 from ...fusion.late_fusion import fuse
 
-def rank(lat, lon, query, topk=10, cfg_path="configs/mvp.yaml"):
+def rank(lat, lon, query, topk=10, cfg_path="src\configs\mvp.yaml"):
     #Build graph and get embeddings
     cfg = yaml.safe_load(open(cfg_path))
     data_source, data, maps = build_graph(cfg)
