@@ -9,32 +9,42 @@ import pandas as pd
 import numpy as np
 import torch
 import yaml
-from ..common.infer import load_embeddings
 from ..common.graph_build import build_graph
-from ..common.geo import haversine_m
+from ..common.geo import haversine_m, MI_TO_KM
 from ...fusion.late_fusion import fuse
+from ...api.community_json import get_flags
 
-def rank(lat, lon, query, topk=10, cfg_path="src\configs\mvp.yaml"):
+def rank(lat, lon, query, topk=10, cfg_path="src/configs/mvp.yaml"):
     #Build graph and get embeddings
     cfg = yaml.safe_load(open(cfg_path))
     data_source, data, maps = build_graph(cfg)
-    rest_emb = load_embeddings("restaurant_emb.pt") #[N,D] (remember M matrix from common.geo -> graph matrix)
 
     #Local filter by radius
     places = data_source.fetch_places()
     coords = places[["lat", "lon"]].values
-    dists = haversine_m(np.array([[lat, lon]]), coords).flatten()
-    keep = np.where(dists <= cfg["data"]["geo_radius_m"])[0]
-
-    #stub: scores from embeddings cosine to query vector (if use embed query)
-    #accessibility and quality from reviews added here (GAT)
-    base = torch.rand(len(keep))    #MVP placeholder
+    # Distance is computed in miles; convert to km for comparison with cfg
+    dists_km = haversine_m(np.array([[lat, lon]]), coords).flatten() * MI_TO_KM
+    data_cfg = cfg.get("data", {})
+    radius_km = data_cfg.get("geo_radius_km")
+    if radius_km is None:
+        radius_m = data_cfg.get("geo_radius_m")
+        radius_km = radius_m / 1000 if radius_m is not None else 5
+    keep = np.where(dists_km <= radius_km)[0]
 
     df = places.iloc[keep].copy()
-    df["accessibility_score"] = base.numpy()
-    df["quality_score"] = 1 - df["accessibility_score"]
+    df["quality_score"] = (df["rating"].fillna(3) / 5).clip(0, 1)
+    df["accessibility_score"] = df["id"].apply(lambda biz: _access_from_flags(str(biz)))
     df["final_score"] = fuse(df["accessibility_score"].values, df["quality_score"].values)
     df = df.sort_values("final_score", ascending=False).head(topk)
 
     data_source.upsert_scores(df[["id", "accessibility_score", "quality_score", "final_score"]])
-    return df[["name", "final_score", "accessibility_score", "quality_score", "lat", "lon"]]
+    return df[["id", "name", "final_score", "accessibility_score", "quality_score", "lat", "lon"]]
+
+def _access_from_flags(biz_id: str):
+    flags = get_flags(biz_id)
+    if not flags:
+        return 0.5
+    vals = [v for v in flags.values() if isinstance(v, (int, float))]
+    if not vals:
+        return 0.5
+    return sum(1 for v in vals if v > 0) / len(vals)

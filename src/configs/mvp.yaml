@@ -1,7 +1,7 @@
 #This allows remote changes to the parameters, so it isn't hardcoded
 seed: 42
 data:
-  path: data
+  path: src/data
   geo_radius_km: 5
 model:
   sage: {hidden: 64, layers: 2, dropout: 0.1, epochs: 5, lr: 0.001}

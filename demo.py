@@ -73,14 +73,17 @@ def search_flow(raw_query: str, city: str):
 
         print("\n==============================")
         print(name)
-        if biz_id:
-            print(f"  Business ID:        {biz_id}")
-        if final_score is not None:
-            print(f"  Final score:        {final_score:.3f}")
+        # if biz_id:
+        #     print(f"  Business ID:        {biz_id}")
         if access_score is not None:
-            print(f"  Accessibility score:{access_score:.3f}")
+            stars = (row.get("accessibility_score") or 0) * 5
+            print(f"  Accessibility score: {stars:.1f}")
         if quality_score is not None:
-            print(f"  Quality score:      {quality_score:.3f}")
+            stars = (row.get("quality_score") or 0) * 5
+            print(f"  Quality score:      {stars:.1f}")
+        if final_score is not None:
+            stars = (row.get("final_score") or 0) * 5
+            print(f"  Final score:    {stars:.1f}/5 stars")
 
         # Community flags
         if biz_id:

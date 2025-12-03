@@ -15,6 +15,9 @@ import numpy as np
 import torch
 from typing import Tuple, Optional
 
+MI_TO_KM = 1.60934
+KM_TO_MI = 1 / MI_TO_KM
+
 EARTH_RADIUS_MI = 3958.7613  # miles
 EARTH_RADIUS_KM = 6371.0088  # kilometers
 
@@ -32,9 +35,19 @@ def haversine_m(coord1_deg: np.ndarray, coord2_deg: np.ndarray) -> np.ndarray:
     dist = 2.0 * EARTH_RADIUS_MI * np.arcsin(np.sqrt(h))
     return dist.squeeze(0) if dist.shape[0] == 1 else dist
 
-#If not given a radius, default to 5m
-#This function returns edges between places within radius_m
-def geo_rings(places, radius_miles: float = 5.0, bidirectional: bool = True, include_self: bool = False):
+#If not given a radius, default to 5 miles
+#This function returns edges between places within radius_miles or radius_km
+def geo_rings(
+    places,
+    radius_miles: Optional[float] = None,
+    radius_km: Optional[float] = None,
+    bidirectional: bool = True,
+    include_self: bool = False,
+):
+    if radius_km is not None:
+        radius_miles = radius_km * KM_TO_MI
+    if radius_miles is None:
+        radius_miles = 5.0
     coords = places[["lat", "lon"]].values
     n = len(coords)
     src, dst = [], []

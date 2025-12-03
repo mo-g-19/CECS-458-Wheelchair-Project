@@ -3,14 +3,19 @@
 
 import torch, torch.nn.functional as F
 
-#Loaded saved embeddings as a 2D [N, D] tensor
-def load_embeddings(path="restaurant_emb.pt"):
-    return torch.load(path)
+#Loaded saved embeddings as a 2D [N, D] tensor. If allow_missing=True, returns None when file not found.
+def load_embeddings(path="restaurant_emb.pt", allow_missing: bool = False, device=None):
+    try:
+        return torch.load(path, map_location=device)
+    except FileNotFoundError:
+        if allow_missing:
+            return None
+        raise
 
 #Finds the cosine similiarity (how close they are, and are normalized) between query vec [D] and matrix M [N,D]
 def cosine_scores(q, M):
-    q = F.normalize(q.unsqueese(0), dim=-1)
-    M = F.normalize(m, dim=-1)
+    q = F.normalize(q.unsqueeze(0), dim=-1)
+    M = F.normalize(M, dim=-1)
     return (q @ M.T).squeeze(0)
 
 #Returns the cosine similarity scoresonly subset of rows in 'embeddings'
