@@ -1,4 +1,4 @@
-# just testing model
+# Draft - just testing model
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
@@ -14,8 +14,6 @@ sentences = [
     "The cafe is not accessible because of stairs.",
     "The food was delicious!"
 ]
-
-# TODO: next step is to encode restaurant reviews from our larger dataset
 embeddings = model.encode(sentences)
 
 print("Embeddings shape:", embeddings.shape)
