@@ -1,22 +1,7 @@
-#This should test it out
-import argparse
+# < demo.py >
 from src.GNNs.pipeline.rank_local import rank
 from src.NLP.query_parser import parse_query, build_results
 from src.api.community_json import record_flag, add_text_review, get_flags, get_text_reviews
-
-# if __name__ == "__main__":
-#     ap = argparse.ArgumentParser()
-#     ap.add_argument("--lat", type=float, required=True)
-#     ap.add_argument("--lon", type=float, required=True)
-#     ap.add_argument("--query", type=str, default="")
-#     ap.add_argument("--topk", type=int, default=10)
-#     args = ap.parse_args()
-#     df = rank(args.lat, args.lon, args.query, args.topk)
-#     print(df.to_string(index=False))
-
-
-
-
 
 
 # Simple mapping from city -> approximate coords
@@ -50,7 +35,6 @@ def yes_no(prompt: str):
 
 
 # ---- search flow ----
-
 def search_flow(raw_query: str, city: str, parsed_query=None):
     print(f"City:       {city}")
 
@@ -100,19 +84,20 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
             stars = (row.get("final_score") or 0) * 5
             print(f"  Final score:         {stars:.1f}/5 ⭐")
 
+        # Display flags with nice format in future rendition 
         flags = _get_flags_for_row(row)
-        if flags:
-            label_map = {
-                "wheelchair_accessible": "Wheelchair accessible",
-                "accessible_restroom": "Accessible restroom",
-                "step_free_entrance": "Step-free entrance",
-                "accessible_parking": "Accessible parking",
-                "elevator_access": "Elevator access",
-            }
-            flag_labels = [
-                label for key, label in label_map.items()
-                if flags.get(key) == 1
-            ]
+        # if flags:
+        #     label_map = {
+        #         "wheelchair_accessible": "Wheelchair accessible",
+        #         "accessible_restroom": "Accessible restroom",
+        #         "step_free_entrance": "Step-free entrance",
+        #         "accessible_parking": "Accessible parking",
+        #         "elevator_access": "Elevator access",
+        #     }
+            # flag_labels = [
+            #     label for key, label in label_map.items()
+            #     if flags.get(key) == 1
+            # ]
             # if flag_labels:
             #     print("  Community flags: " + ", ".join(flag_labels))
         if required_keys:
@@ -130,7 +115,6 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
                 snippet += "..."
             print("  Community review:", snippet)
 
-    # print("(end of top 5)")
     print("- - - - - - - - - - - - - - -")
 
 
@@ -141,9 +125,7 @@ def _get_flags_for_row(row):
 
 
 # --- review flow ---
-
-def review_flow(suggested_name: str = ""):
-    # TODO: account for user entering just restaurant name
+def review_flow():
     biz_id = input("Restaurant name or id:\n> ").strip()
     if not biz_id:
         print("No ID/name provided. Cancelling.\n")
@@ -174,10 +156,7 @@ def review_flow(suggested_name: str = ""):
 
 def main():
     while True:
-        user_input = input(
-            "\nHow can I assist you today?\n> "
-            # "(Describe what you want, or type 'q' to quit)\n> "
-        ).strip()
+        user_input = input("\nHow can I assist you today?\n> ").strip()
 
         if user_input.lower() in ("q", "quit", "exit"):
             print("\nGoodbye!")
@@ -211,3 +190,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
