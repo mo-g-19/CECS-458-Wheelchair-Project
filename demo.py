@@ -67,8 +67,9 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
         return
 
     if required_keys:
-        has_required = df["id"].apply(
-            lambda bid: all(get_flags(str(bid)).get(k) == 1 for k in required_keys)
+        has_required = df.apply(
+            lambda row: all((_get_flags_for_row(row).get(k) == 1) for k in required_keys),
+            axis=1,
         )
         filtered = df[has_required]
         if not filtered.empty:
@@ -77,7 +78,6 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
     df = df.head(5)
 
     for _, row in df.iterrows():
-        # Prefer business id; if missing, fall back to name as key
         biz_id = str(row.get("id") or row.get("name") or "").strip()
         name = row.get("name", "Unknown")
 
@@ -88,8 +88,6 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
 
         print("\n==============================")
         print(name)
-        # if biz_id:
-        #     print(f"  Business ID:        {biz_id}")
         if yelp_rating:
             print(f"  Yelp rating:         {yelp_rating:.1f}/5")
         if access_score is not None:
@@ -100,11 +98,10 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
             print(f"  Quality score:       {stars:.1f}/5")
         if final_score is not None:
             stars = (row.get("final_score") or 0) * 5
-            print(f"    Final score:         {stars:.1f}/5 stars")
+            print(f"  Final score:         {stars:.1f}/5 stars")
 
-        # Community flags
-        if biz_id:
-            flags = _get_flags_for_row(row)
+        flags = _get_flags_for_row(row)
+        if flags:
             label_map = {
                 "wheelchair_accessible": "Wheelchair accessible",
                 "accessible_restroom": "Accessible restroom",
@@ -116,29 +113,34 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
                 label for key, label in label_map.items()
                 if flags.get(key) == 1
             ]
-            if flag_labels:
-                print("  Community flags: " + ", ".join(flag_labels))
-            if required_keys:
-                checks = []
-                for k in required_keys:
-                    status = flags.get(k) == 1
-                            checks.append(f"{k.replace('_',' ').title()}: {'?' if status else 'X'}")
-                        print("  Requested flags:   " + "; ".join(checks))
+            # if flag_labels:
+            #     print("  Community flags: " + ", ".join(flag_labels))
+        if required_keys:
+            checks = []
+            for k in required_keys:
+                status = flags.get(k) == 1
+                checks.append(f"{k.replace('_',' ').title()}: {'✅' if status else 'X'}")
+            print("; ".join(checks))
 
-            # Community text reviews (show first snippet)
-            reviews = get_text_reviews(biz_id)
-            if reviews:
-                snippet = reviews[0][:160]
-                if len(reviews[0]) > 160:
-                    snippet += "..."
-                print("  Community review:", snippet)
+        reviews = get_text_reviews(biz_id)
+        if reviews:
+            snippet = reviews[0][:160]
+            if len(reviews[0]) > 160:
+                snippet += "..."
+            print("  Community review:", snippet)
 
-    print("\n(end of top 5)\n")
+    print("(end of top 5)")
+
+
+def _get_flags_for_row(row):
+    bid = str(row.get("id") or "").strip()
+    name = str(row.get("name") or "").strip()
+    return get_flags(bid) or get_flags(name) or {}
 
 
 # --- review flow ---
 
-def review_flow():
+def review_flow(suggested_name: str = ""):
     # TODO: account for user entering just restaurant name
     biz_id = input("Business ID or restaurant name key:\n> ").strip()
     if not biz_id:
