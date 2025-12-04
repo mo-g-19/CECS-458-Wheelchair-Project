@@ -8,6 +8,21 @@
   },
   "business_id_3": {
     "accessible_restroom": 1,
-    "step-free_entrance": 1
+    "step-free_entrance": 1,
+    "flags": {
+      "step-free_entrance": 1
+    }
+  },
+  "Charm Siam Restaurant": {
+    "flags": {
+      "wheelchair_accessible": 1,
+      "accessible_restroom": 1,
+      "step_free_entrance": 1,
+      "accessible_parking": 1,
+      "elevator_access": 1
+    },
+    "reviews": [
+      "Amazing food and spacious restroom!"
+    ]
   }
 }

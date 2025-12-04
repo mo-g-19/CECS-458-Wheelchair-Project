@@ -36,8 +36,14 @@ def parse_query(query):
     is_review = any(word in query_lower for word in ["review", "rate", "my experience", "i went to", "visited"])
     is_search = any(word in query_lower for word in ["find", "show", "looking for", "restaurant", "place", "search", "near me"])
 
-    intent = "review" if is_review and not is_search else "search"
+    if is_review:
+        intent = "review"
+    elif is_search:
+        intent = "search"
+    else:
+        intent = "search"
     
+    matched_labels = []
     doc = nlp(query)
     # extract location (GPE) and possible cuisine words
     location = [ent.text for ent in doc.ents if ent.label_ == "GPE"]

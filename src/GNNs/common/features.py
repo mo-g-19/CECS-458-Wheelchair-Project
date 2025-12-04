@@ -25,7 +25,7 @@ def build_features(data, places, reviews, rid_map, uid_map, vid_map):
     #Make sure there are actual words in the review
     if len(reviews) > 0 and "text" in reviews:
         model = SentenceTransformer('all-MiniLM-L6-v2')    #The all-MiniLM-L6-v2 model from search.py
-        embs = model.encode(model, reviews["text"].fillna("").tolist())
+        embs = model.encode(reviews["text"].fillna("").tolist())
         review_texts = torch.tensor(np.asarray(embs), dtype=torch.float32)
     else:
         #Placeholder of zeros if no reviews

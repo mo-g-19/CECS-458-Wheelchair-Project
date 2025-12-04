@@ -33,15 +33,17 @@ def rank(lat, lon, query, topk=10, cfg_path="src/configs/mvp.yaml"):
 
     df = places.iloc[keep].copy()
     df["quality_score"] = (df["rating"].fillna(3) / 5).clip(0, 1)
-    df["accessibility_score"] = df["id"].apply(lambda biz: _access_from_flags(str(biz)))
+    df["accessibility_score"] = df.apply(
+        lambda row: _access_from_flags(str(row.get("id", "")), str(row.get("name", ""))), axis=1
+    )
     df["final_score"] = fuse(df["accessibility_score"].values, df["quality_score"].values)
     df = df.sort_values("final_score", ascending=False).head(topk)
 
     data_source.upsert_scores(df[["id", "accessibility_score", "quality_score", "final_score"]])
-    return df[["id", "name", "final_score", "accessibility_score", "quality_score", "lat", "lon"]]
+    return df[["id", "name", "rating", "final_score", "accessibility_score", "quality_score", "lat", "lon"]]
 
-def _access_from_flags(biz_id: str):
-    flags = get_flags(biz_id)
+def _access_from_flags(biz_id: str, name: str = ""):
+    flags = get_flags(biz_id) or get_flags(name)
     if not flags:
         return 0.5
     vals = [v for v in flags.values() if isinstance(v, (int, float))]
