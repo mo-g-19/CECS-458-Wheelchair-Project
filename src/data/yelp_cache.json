@@ -1,0 +1,609 @@
+{
+  "qnXWuRSKmgLepZnCydleSA": {
+    "name": "Chiang Rai",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 1022,
+    "lat": 33.7824287945984,
+    "lon": -118.1474,
+    "url": "https://www.yelp.com/biz/chiang-rai-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "mkbaPKraHzTEUf7-VWA95A": {
+    "name": "Kin Long Beach",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.6,
+    "review_count": 2099,
+    "lat": 33.769074,
+    "lon": -118.18262,
+    "url": "https://www.yelp.com/biz/kin-long-beach-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Cocktail Bars",
+      "Salad"
+    ]
+  },
+  "XH5Lp-_z6lAihyWZwktmUQ": {
+    "name": "Manaow",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.5,
+    "review_count": 1297,
+    "lat": 33.7641763,
+    "lon": -118.1499427,
+    "url": "https://www.yelp.com/biz/manaow-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "XlaQvETgckYelvxOAAHTYA": {
+    "name": "S T Noodle Bar",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 745,
+    "lat": 33.8335119657206,
+    "lon": -118.141696510947,
+    "url": "https://www.yelp.com/biz/s-t-noodle-bar-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles"
+    ]
+  },
+  "j_C8WQDdHbadRAxEMZ6nVQ": {
+    "name": "Thai District",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 1698,
+    "lat": 33.76907,
+    "lon": -118.18659,
+    "url": "https://www.yelp.com/biz/thai-district-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles",
+      "Cocktail Bars"
+    ]
+  },
+  "eET0z9hRY9DHflggyLTfZA": {
+    "name": "Panvimarn Thai Cuisine",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.0,
+    "review_count": 2342,
+    "lat": 33.832607214061085,
+    "lon": -118.1254804,
+    "url": "https://www.yelp.com/biz/panvimarn-thai-cuisine-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles",
+      "Bars"
+    ]
+  },
+  "qlRiQuGaRWQSiZ5y9fmbrg": {
+    "name": "Elephant Thai Kitchen",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 1035,
+    "lat": 33.7950328159575,
+    "lon": -118.189748073404,
+    "url": "https://www.yelp.com/biz/elephant-thai-kitchen-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "t3GXaEBJcwEKQ5_-ZwD46A": {
+    "name": "Long Beach Thai Restaurant",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 3.9,
+    "review_count": 1535,
+    "lat": 33.7827263067209,
+    "lon": -118.155395798385,
+    "url": "https://www.yelp.com/biz/long-beach-thai-restaurant-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "n414f1kSklBqR2dTuJHIgQ": {
+    "name": "Charm Siam Restaurant",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.5,
+    "review_count": 259,
+    "lat": 33.767785,
+    "lon": -118.172993,
+    "url": "https://www.yelp.com/biz/charm-siam-restaurant-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Noodles",
+      "Thai",
+      "Soup"
+    ]
+  },
+  "WxwOmGpcGrkYrZxZkyJf7Q": {
+    "name": "The Second Owl",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.6,
+    "review_count": 65,
+    "lat": 33.75949689999999,
+    "lon": -118.13347107416496,
+    "url": "https://www.yelp.com/biz/the-second-owl-long-beach-4?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles",
+      "Seafood"
+    ]
+  },
+  "ms3r9A3aaKxzQ-k0LSzXSA": {
+    "name": "OWL OWL Thai Lao Street Food",
+    "city": "Signal Hill",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 329,
+    "lat": 33.8050332,
+    "lon": -118.16470844398046,
+    "url": "https://www.yelp.com/biz/owl-owl-thai-lao-street-food-signal-hill?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Laotian",
+      "Noodles"
+    ]
+  },
+  "csDrlbCqzWxaRnZpbU3sCw": {
+    "name": "Thai House Street Eats",
+    "city": "Lakewood",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 156,
+    "lat": 33.832719,
+    "lon": -118.155297,
+    "url": "https://www.yelp.com/biz/thai-house-street-eats-lakewood?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "5h7g85jzTV2MXG6IU7n_zQ": {
+    "name": "Bai Plu Thai & Sushi",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.1,
+    "review_count": 1391,
+    "lat": 33.7943751487324,
+    "lon": -118.125543115344,
+    "url": "https://www.yelp.com/biz/bai-plu-thai-and-sushi-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Sushi Bars",
+      "Thai",
+      "Cocktail Bars"
+    ]
+  },
+  "5sKyl-00crw8LUcHr1NriQ": {
+    "name": "Pad Thai Classic",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.7,
+    "review_count": 865,
+    "lat": 33.774962,
+    "lon": -118.165094,
+    "url": "https://www.yelp.com/biz/pad-thai-classic-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles",
+      "Barbeque"
+    ]
+  },
+  "VX4NjPcMBJKhxGJVzyf56g": {
+    "name": "Tasty Food To Go",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.7,
+    "review_count": 756,
+    "lat": 33.77922,
+    "lon": -118.16716,
+    "url": "https://www.yelp.com/biz/tasty-food-to-go-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Laotian"
+    ]
+  },
+  "u3Ej5Kzz__XCw4DC1soBAQ": {
+    "name": "Thai Curry Pizza",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.2,
+    "review_count": 1439,
+    "lat": 33.77874,
+    "lon": -118.15273,
+    "url": "https://www.yelp.com/biz/thai-curry-pizza-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Pizza",
+      "Thai",
+      "Seafood"
+    ]
+  },
+  "6lfjEaQ66GD19MpnScdlXw": {
+    "name": "Thai Corner Restaurant",
+    "city": "Lakewood",
+    "cuisine": "thai",
+    "rating": 3.9,
+    "review_count": 472,
+    "lat": 33.833039843785,
+    "lon": -118.160452722453,
+    "url": "https://www.yelp.com/biz/thai-corner-restaurant-lakewood?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "wNStnqi5LZ8BpjEF3OKhJg": {
+    "name": "Cholada Thai Cuisine Long Beach",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.5,
+    "review_count": 104,
+    "lat": 33.83332,
+    "lon": -118.17596,
+    "url": "https://www.yelp.com/biz/cholada-thai-cuisine-long-beach-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "Uaygdyv4d9xquFPb4NHHhw": {
+    "name": "Spicy Sugar Thai - Long Beach",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 3.9,
+    "review_count": 652,
+    "lat": 33.7677683,
+    "lon": -118.1726784,
+    "url": "https://www.yelp.com/biz/spicy-sugar-thai-long-beach-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "QJ6AValwl3zZIErmdaLVVg": {
+    "name": "Thai Villa Restaurant",
+    "city": "Lakewood",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 492,
+    "lat": 33.8590428878421,
+    "lon": -118.1163124,
+    "url": "https://www.yelp.com/biz/thai-villa-restaurant-lakewood-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "EY25VeXtsuIyysvAIU_ZSg": {
+    "name": "Naree Thai Restaurant",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.2,
+    "review_count": 501,
+    "lat": 33.76688,
+    "lon": -118.18571,
+    "url": "https://www.yelp.com/biz/naree-thai-restaurant-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Salad",
+      "Soup"
+    ]
+  },
+  "1485i_hasWimFGt8kx7CsA": {
+    "name": "Tantalum Restaurant",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.0,
+    "review_count": 3289,
+    "lat": 33.761871173267664,
+    "lon": -118.11698907430156,
+    "url": "https://www.yelp.com/biz/tantalum-restaurant-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Asian Fusion",
+      "American",
+      "Cocktail Bars"
+    ]
+  },
+  "UBw16_z02N_sVY2MYVaFYQ": {
+    "name": "Little La Lune Cuisine",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.1,
+    "review_count": 350,
+    "lat": 33.78960851496843,
+    "lon": -118.1668015,
+    "url": "https://www.yelp.com/biz/little-la-lune-cuisine-long-beach-3?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Cambodian",
+      "Juice Bars & Smoothies"
+    ]
+  },
+  "kR0_JlK0_xJnvP8r4YOaNA": {
+    "name": "Rim Talay",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 105,
+    "lat": 33.75729280735187,
+    "lon": -118.1261319,
+    "url": "https://www.yelp.com/biz/rim-talay-long-beach-3?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "pO4Gv4JQ4L18DX_Cp8TLqw": {
+    "name": "Phi Thai",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 56,
+    "lat": 33.7838,
+    "lon": -118.19873,
+    "url": "https://www.yelp.com/biz/phi-thai-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Coffee & Tea"
+    ]
+  },
+  "Va5m6ZlM83r2YnUdfucvqA": {
+    "name": "Phnom Penh Noodle Shack",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 1575,
+    "lat": 33.78788057540407,
+    "lon": -118.16744970674593,
+    "url": "https://www.yelp.com/biz/phnom-penh-noodle-shack-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Cambodian",
+      "Noodles",
+      "Soup"
+    ]
+  },
+  "v5DGlx_NyApFxikNu_wA3w": {
+    "name": "The Basil",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 3.9,
+    "review_count": 435,
+    "lat": 33.846688,
+    "lon": -118.1258025,
+    "url": "https://www.yelp.com/biz/the-basil-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles"
+    ]
+  },
+  "cr7FxDy7Xo1lMz36OxwwNQ": {
+    "name": "Aura Thai",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 3.7,
+    "review_count": 708,
+    "lat": 33.83146,
+    "lon": -118.18544,
+    "url": "https://www.yelp.com/biz/aura-thai-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Soup"
+    ]
+  },
+  "ZqDS35i1a7FxQqVOIPrzSA": {
+    "name": "Cyclo Noodles",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 1940,
+    "lat": 33.7866134,
+    "lon": -118.1380857,
+    "url": "https://www.yelp.com/biz/cyclo-noodles-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Cambodian",
+      "Vietnamese",
+      "Noodles"
+    ]
+  },
+  "jfeg9FeSnNcMEtrMP0dBZQ": {
+    "name": "Happy Thai Restaurant",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 147,
+    "lat": 33.7950137,
+    "lon": -118.1939049,
+    "url": "https://www.yelp.com/biz/happy-thai-restaurant-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai"
+    ]
+  },
+  "Es0ntwpGPbrD0FOSNtKwqw": {
+    "name": "Thai Original BBQ",
+    "city": "Cerritos",
+    "cuisine": "thai",
+    "rating": 3.9,
+    "review_count": 1282,
+    "lat": 33.866622,
+    "lon": -118.092917,
+    "url": "https://www.yelp.com/biz/thai-original-bbq-cerritos?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Barbeque"
+    ]
+  },
+  "dUuNRYXBxcHwZNgniu16wg": {
+    "name": "Sirinat Thai & Sushi Bar",
+    "city": "San Pedro",
+    "cuisine": "thai",
+    "rating": 4.4,
+    "review_count": 1647,
+    "lat": 33.723328,
+    "lon": -118.314173,
+    "url": "https://www.yelp.com/biz/sirinat-thai-and-sushi-bar-san-pedro?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Noodles",
+      "Soup"
+    ]
+  },
+  "myKGhzjt1ZXNiiCnGvTYmw": {
+    "name": "Crystal Thai-Cambodian Cuisine",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.0,
+    "review_count": 387,
+    "lat": 33.7791633605957,
+    "lon": -118.17667388916,
+    "url": "https://www.yelp.com/biz/crystal-thai-cambodian-cuisine-long-beach?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Cambodian",
+      "Salad"
+    ]
+  },
+  "DnOaztsVyf-2CWW9VKhrKw": {
+    "name": "Thai Barbeque",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 3.7,
+    "review_count": 406,
+    "lat": 33.775667,
+    "lon": -118.1585704,
+    "url": "https://www.yelp.com/biz/thai-barbeque-long-beach-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Barbeque",
+      "Seafood"
+    ]
+  },
+  "vnPunAV95BebeCgkYZf81Q": {
+    "name": "Taishi Hainan Chicken",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.5,
+    "review_count": 409,
+    "lat": 33.77154,
+    "lon": -118.15155,
+    "url": "https://www.yelp.com/biz/taishi-hainan-chicken-long-beach-4?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Hainan",
+      "Chicken Shop"
+    ]
+  },
+  "n6qQVXT9VfCnZigb_-QPKg": {
+    "name": "Siam Station",
+    "city": "Cerritos",
+    "cuisine": "thai",
+    "rating": 4.2,
+    "review_count": 131,
+    "lat": 33.85734360126945,
+    "lon": -118.0929387,
+    "url": "https://www.yelp.com/biz/siam-station-cerritos?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Asian Fusion"
+    ]
+  },
+  "db2Rqwfiti4NPCocqXJADw": {
+    "name": "Nok’s Kitchen",
+    "city": "Westminster",
+    "cuisine": "thai",
+    "rating": 4.6,
+    "review_count": 722,
+    "lat": 33.745150379230175,
+    "lon": -117.96552736051594,
+    "url": "https://www.yelp.com/biz/nok-s-kitchen-westminster-2?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Laotian"
+    ]
+  },
+  "_5UUPLjpzv-Td46OPfLS2A": {
+    "name": "Cancoon Thai Restaurant",
+    "city": "Bellflower",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 296,
+    "lat": 33.8894349,
+    "lon": -118.1348015,
+    "url": "https://www.yelp.com/biz/cancoon-thai-restaurant-bellflower?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Thai",
+      "Salad",
+      "Soup"
+    ]
+  },
+  "WEw-X-jYU6OHJpvlAUoSTw": {
+    "name": "NAM Kitchen",
+    "city": "Gardena",
+    "cuisine": "thai",
+    "rating": 4.8,
+    "review_count": 1856,
+    "lat": 33.872536821632465,
+    "lon": -118.3035150858434,
+    "url": "https://www.yelp.com/biz/nam-kitchen-gardena?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Asian Fusion",
+      "Vietnamese",
+      "Peruvian"
+    ]
+  },
+  "U45rccV_sPHNeqGhWwViqg": {
+    "name": "Monorom Cambodian Restaurant",
+    "city": "Long Beach",
+    "cuisine": "thai",
+    "rating": 4.3,
+    "review_count": 681,
+    "lat": 33.782235,
+    "lon": -118.165655,
+    "url": "https://www.yelp.com/biz/monorom-cambodian-restaurant-long-beach-4?adjust_creative=5nQT44BiU8ZNr4W5GkbHZw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=5nQT44BiU8ZNr4W5GkbHZw",
+    "reviews": [],
+    "categories": [
+      "Cambodian",
+      "Vietnamese"
+    ]
+  }
+}

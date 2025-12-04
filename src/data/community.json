@@ -1,0 +1,39 @@
+{
+  "business_id_1": {
+    "accessible_restroom": 1,
+    "wheelchair_accessible": 1
+  },
+  "business_id_2": {
+    "accessible_restroom": 1
+  },
+  "business_id_3": {
+    "flags": {
+      "step-free_entrance": 1
+    }
+  },
+  "Charm Siam Restaurant": {
+    "flags": {
+      "wheelchair_accessible": 1,
+      "accessible_restroom": 1,
+      "step_free_entrance": 1,
+      "accessible_parking": 0,
+      "elevator_access": 1
+    },
+    "reviews": [
+      "Amazing food and spacious restroom!"
+    ]
+  },
+  "Manaow": {
+    "flags": {
+      "wheelchair_accessible": 0,
+      "accessible_restroom": 1,
+      "step_free_entrance": 1,
+      "accessible_parking": 1,
+      "elevator_access": 0
+    },
+    "reviews": [
+      "Nice, smooth ramp.",
+      "They fixed their elevator last week!"
+    ]
+  }
+}

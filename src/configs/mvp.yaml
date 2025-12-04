@@ -1,0 +1,11 @@
+#This allows remote changes to the parameters, so it isn't hardcoded
+seed: 42
+data:
+  path: src/data
+  geo_radius_km: 5
+model:
+  sage: {hidden: 64, layers: 2, dropout: 0.1, epochs: 5, lr: 0.001}
+  gcn: {hidden: 64, layers: 2, dropout: 0.1, epochs: 5, lr: 0.001}
+  gat: {hidden: 32, dropout: 0.1}
+fusion:
+  weights: {accessibility: 0.6, quality: 0.4}

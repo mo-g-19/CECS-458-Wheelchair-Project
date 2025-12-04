@@ -1,0 +1,13 @@
+torch
+torch-geometric
+pyyaml
+tqdm
+numpy
+pandas
+haversine
+requests
+nltk
+sentence-transformers
+pydantic
+tenacity
+python-dotenv
