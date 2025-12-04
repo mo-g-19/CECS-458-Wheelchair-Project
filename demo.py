@@ -98,7 +98,7 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
             print(f"  Quality score:       {stars:.1f}/5")
         if final_score is not None:
             stars = (row.get("final_score") or 0) * 5
-            print(f"  Final score:         {stars:.1f}/5 stars")
+            print(f"  Final score:         {stars:.1f}/5 ⭐")
 
         flags = _get_flags_for_row(row)
         if flags:
@@ -120,7 +120,8 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
             for k in required_keys:
                 status = flags.get(k) == 1
                 checks.append(f"{k.replace('_',' ').title()}: {'✅' if status else 'X'}")
-            print("; ".join(checks))
+            for chk in checks:
+                print(f"  {chk}")
 
         reviews = get_text_reviews(biz_id)
         if reviews:
@@ -129,7 +130,8 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
                 snippet += "..."
             print("  Community review:", snippet)
 
-    print("(end of top 5)")
+    # print("(end of top 5)")
+    print("- - - - - - - - - - - - - - -")
 
 
 def _get_flags_for_row(row):
@@ -142,7 +144,7 @@ def _get_flags_for_row(row):
 
 def review_flow(suggested_name: str = ""):
     # TODO: account for user entering just restaurant name
-    biz_id = input("Business ID or restaurant name key:\n> ").strip()
+    biz_id = input("Restaurant name or id:\n> ").strip()
     if not biz_id:
         print("No ID/name provided. Cancelling.\n")
         return
@@ -173,8 +175,8 @@ def review_flow(suggested_name: str = ""):
 def main():
     while True:
         user_input = input(
-            "\nHow can I assist you today?\n"
-            "(Describe what you want, or type 'q' to quit)\n> "
+            "\nHow can I assist you today?\n> "
+            # "(Describe what you want, or type 'q' to quit)\n> "
         ).strip()
 
         if user_input.lower() in ("q", "quit", "exit"):

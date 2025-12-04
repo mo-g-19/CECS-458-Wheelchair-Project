@@ -54,18 +54,27 @@ def parse_query(query):
         if any(p in query_lower for p in ["near me", "around here", "close by", "nearby", "close to me"]):
             location = ["Long Beach"]   # long beach as our default city
 
+        matched = set()
+        # rule-based flag detection for explicit phrases
+        for lbl in LABELS:
+            if lbl in query_lower:
+                matched.add(lbl)
+
         # find closest accessibility intent
         query_embedding = st_model.encode(query, normalize_embeddings=True)
         label_embedding = st_model.encode(LABELS, normalize_embeddings=True)
         similarities = util.cos_sim(query_embedding, label_embedding)[0].tolist()
         
         threshold = 0.40 # set for now
-        matched_labels = [label for label, score in zip(LABELS, similarities) if score >= threshold]
+        for label, score in zip(LABELS, similarities):
+            if score >= threshold:
+                matched.add(label)
 
         # if nothing passes threshold, still keep  highest one
-        if not matched_labels:
+        if not matched:
             top_idx = int(similarities.index(max(similarities)))
-            matched_labels = [LABELS[top_idx]]
+            matched = {LABELS[top_idx]}
+        matched_labels = list(matched)
 
     return {
         "intent": intent,
