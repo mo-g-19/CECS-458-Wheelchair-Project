@@ -3,6 +3,34 @@ from src.GNNs.pipeline.rank_local import rank
 from src.NLP.query_parser import parse_query, build_results
 from src.api.community_json import record_flag, add_text_review, get_flags, get_text_reviews
 
+# Keywords to loosely match reviews to requested accessibility flags
+FLAG_KEYWORDS = {
+    "wheelchair_accessible": ["wheelchair", "accessible layout", "wide aisles"],
+    "accessible_restroom": ["accessible restroom", "accessible bathroom", "accessible toilet", "restroom", "bathroom"],
+    "step_free_entrance": ["ramp", "step-free", "no stairs", "step free"],
+    "accessible_parking": ["accessible parking", "disabled spot", "parking"],
+    "elevator_access": ["elevator", "lift"],
+}
+
+
+def _filter_reviews_by_flags(reviews, flags):
+    # Return only reviews that mention any of the requested flags
+    if not flags:
+        return reviews
+
+    filtered = []
+    for review in reviews:
+        text = review.lower()
+        for flag in flags:
+            for kw in FLAG_KEYWORDS.get(flag, []):
+                if kw in text:
+                    filtered.append(review)
+                    break
+            else:
+                continue
+            break
+    return filtered
+
 
 # Simple mapping from city -> approximate coords
 # (used internally by rank())
@@ -108,12 +136,15 @@ def search_flow(raw_query: str, city: str, parsed_query=None):
             for chk in checks:
                 print(f"  {chk}")
 
-        reviews = get_text_reviews(biz_id)
-        if reviews:
-            snippet = reviews[0][:160]
-            if len(reviews[0]) > 160:
-                snippet += "..."
-            print("  Community review:", snippet)
+        reviews = get_text_reviews(biz_id) or get_text_reviews(name)
+        relevant_reviews = _filter_reviews_by_flags(reviews, required_keys)
+        if relevant_reviews:
+            # show up to two relevant snippets
+            for review in relevant_reviews[:2]:
+                snippet = review[:160]
+                if len(review) > 160:
+                    snippet += "..."
+                print(f'   "{snippet}"')
 
     print("- - - - - - - - - - - - - - -")
 
@@ -159,7 +190,7 @@ def main():
         user_input = input("\nHow can I assist you today?\n> ").strip()
 
         if user_input.lower() in ("q", "quit", "exit"):
-            print("\nGoodbye!")
+            print("\nHave a good meal!")
             break
 
         query = parse_query(user_input)
