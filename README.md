@@ -37,22 +37,39 @@ Integrating multiple storage layers
 ├── src/
 
 │   ├── gnn/
+
 │   │   ├── graphsage.py
+
 │   │   ├── gcn.py
+
 │   │   ├── gat.py
+
 │   │   └── build_features.py
+
 │   ├── nlp/
+
 │   │   ├── cleaning.py
+
 │   │   ├── embedder.py
+
 │   └── api/
+
 │       ├── yelp_api.py
+
 │       └── inference.py
+
 ├── tests/
+
 │   ├── test_features.py
+
 │   └── test_models.py
+
 ├── data/
+
 │   └── sample_inputs/
+
 ├── requirements.txt
+
 └── README.md  ← you are here
 
 ## How the System Works
