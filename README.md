@@ -74,24 +74,24 @@ Integrating multiple storage layers
 
 ## How the System Works
 1) User Query → NLP Encoder
-Extracts key phrases
-Produces semantic embedding
+    - Extracts key phrases
+    - Produces semantic embedding
 
 2) Location → GraphSAGE
-Filters restaurants to a 5-mile radius
-Provides inductive generalization
+    - Filters restaurants to a 5-mile radius
+    - Provides inductive generalization
 
 3) Local Subgraph to GCN
-- Builds per-query graph
-- Smooths features
+    - Builds per-query graph
+    - Smooths features
 
 4) Credibility Adjustment → GAT
-- Weighs users by historical review frequency
-- Refines accessibility and experience scores
+    - Weighs users by historical review frequency
+    - Refines accessibility and experience scores
 
 5) Late Fusion Ranking
-- Combines NLP + GCN signals
-- Produces final sorted restaurant list
+    - Combines NLP + GCN signals
+    - Produces final sorted restaurant list
 
 ## Running Tests (Still refining it)
 pytest -q
