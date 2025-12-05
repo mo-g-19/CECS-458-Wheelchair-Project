@@ -112,9 +112,11 @@ GraphSAGE → GCN → GAT ───┘
 - GAT = credibility-based weighting
 
 ## Project Status
-X - NLP embedding pipeline
-X - Basic GNN models (GraphSAGE / GCN / GAT)
-X - Subgraph selection for real-time queries
+X  - NLP embedding pipeline
+
+X  - Basic GNN models (GraphSAGE / GCN / GAT)
+
+X  - Subgraph selection for real-time queries
   - Full backend integration
   - Production performance tuning
   - UI/mobile interface
