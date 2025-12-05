@@ -34,23 +34,24 @@ Integrating multiple storage layers
 
 ## Repository Structure
 .
-├── src
-│   ├── gnn
+├── src/
+
+│   ├── gnn/
 │   │   ├── graphsage.py
 │   │   ├── gcn.py
 │   │   ├── gat.py
 │   │   └── build_features.py
-│   ├── nlp
+│   ├── nlp/
 │   │   ├── cleaning.py
 │   │   ├── embedder.py
-│   └── api
+│   └── api/
 │       ├── yelp_api.py
 │       └── inference.py
-├── tests
+├── tests/
 │   ├── test_features.py
 │   └── test_models.py
-├── data
-│   └── sample_inputs (dir)
+├── data/
+│   └── sample_inputs/
 ├── requirements.txt
 └── README.md  ← you are here
 
