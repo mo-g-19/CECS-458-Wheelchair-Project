@@ -117,6 +117,7 @@ X  - NLP embedding pipeline
 X  - Basic GNN models (GraphSAGE / GCN / GAT)
 
 X  - Subgraph selection for real-time queries
+
   -- Full backend integration
 
   -- Production performance tuning
